@@ -1,9 +1,6 @@
 from django.db import models
 
 
-# database/models.py
-from django.db import models
-
 class Starship(models.Model):
     """Модель космического корабля"""
     name = models.CharField(max_length=100, verbose_name="Название")
@@ -13,6 +10,8 @@ class Starship(models.Model):
     crew = models.IntegerField(verbose_name="Экипаж")
     passengers = models.IntegerField(verbose_name="Пассажиры")
     starship_class = models.CharField(max_length=100, verbose_name="Класс корабля")
+    swapi_id = models.CharField(max_length=20, unique=True, null=True, blank=True, verbose_name="ID в SWAPI")
+    
     
     def __str__(self):
         return self.name
@@ -41,6 +40,7 @@ class Character(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="Пол")
     homeworld = models.CharField(max_length=100, verbose_name="Родная планета")
     species = models.CharField(max_length=100, verbose_name="Вид")
+    swapi_id = models.CharField(max_length=20, unique=True, null=True, blank=True, verbose_name="ID в SWAPI")
     
     # Связь с кораблём (у персонажа может быть несколько кораблей)
     starships = models.ManyToManyField(Starship, related_name='pilots', verbose_name="Корабли")
